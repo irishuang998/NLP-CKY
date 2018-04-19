@@ -1,0 +1,12 @@
+S → NP VP 
+Det → that | this | a | the
+S → Aux NP VP 
+Noun → book | flight | meal | man
+S → VP 
+Verb → book | include | read
+NP → Det NOM 
+Aux → does
+NOM → Noun
+NOM → Noun NOM
+VP → Verb
+VP → Verb NP
