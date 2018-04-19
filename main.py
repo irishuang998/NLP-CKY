@@ -100,7 +100,7 @@ def print_dict(this_dict):
 		print(key,val)
 
 if __name__ == '__main__':
-	file_name = "../resource/short_grammer_1.txt"
+	file_name = "short_grammer_1.txt"
 	grammer = import_grammer_from_file(file_name)
 	cnf_grammer = CFG_to_CNF(grammer)
 	print_dict(cnf_grammer)
