@@ -3,6 +3,6 @@ PP -> P NP
 NP -> Det N | NP PP
 VP -> V NP | VP PP
 Det -> 'a' | 'the'
-N -> 'dog' | 'cat' | 'duck'
+N -> 'dog' | 'cat' | 'duck' | 'jungle'
 V -> 'chased' | 'sat' | 'duck'
 P -> 'on' | 'in'
