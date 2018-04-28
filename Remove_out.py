@@ -20,8 +20,8 @@ import os
 # 	ax.text(i/20., i/10., 'A')
 # 	ax.text(i/10.,i/20.,'B')
 # 	fig.savefig(str(i)+'.png')
-for i in range (128):
-	os.remove('./out/'+str(i)+'.png')
+for the_file in os.listdir('./out'):
+	os.remove('./out/'+the_file)
 # ani = animation.ArtistAnimation(fig, ims, interval=50, blit=True,
 #                                 repeat_delay=1000)
 

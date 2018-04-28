@@ -17,6 +17,15 @@ def import_grammer_from_file(file_name):
 
 	#put into structure 
 	#return grammer for later use
+def CFG_to_CNF(grammer):
+	#add S'=S if there is S on the right
+	# for key in list(grammer):
+	# 	for i in range(0, len(grammer[key])):
+	# 		if 'S' in grammer[key][i].split(' '):
+	# 			grammer['S\'']=['S']
+	# print_dict(grammer)
+	return grammer
+
 def CKY_parse(sentence,cnf_grammer,ax):
 	ims=[]
 	split_sentence = sentence.split(' ');
@@ -34,6 +43,7 @@ def CKY_parse(sentence,cnf_grammer,ax):
 			if '\''+split_sentence[s]+'\'' in value:
 				mat[length-1][s].append(key)
 	print_mat(mat)
+
 #   for each unit production Rv -> as
 #     set P[1,s,v] = true
 
@@ -55,15 +65,15 @@ def CKY_parse(sentence,cnf_grammer,ax):
 									# print('test',first_pt+' '+second_pt)
 									# print('rule',rule)
 									if first_pt+' '+second_pt == rule:
-										print(rule)
+										#print(rule)
 										mat[length-l][s].append(key)
+										print('-------------------')
 										print_mat(mat)
+										print('-------------------')
 
 			#plotting
-				print(length-l,s)
 				count+=1
 				print(count)
-				print(p,s, ' ',l-p,s+p)
 				ax.clear ()
 				#ax.axis('equal')
 				ax.axis([0, length, 0,length])
@@ -71,7 +81,7 @@ def CKY_parse(sentence,cnf_grammer,ax):
 				for i in range(length):
 					for j in range(length):
 						if mat[i][j]:
-							ax.text(j+0.4, length-i-0.5, mat[i][j])#print current result
+							ax.text(j+0.1, length-i-0.5, mat[i][j],size ='x-small')#print current result
 
 				for i in range(length):
 					ax.text(i+0.5, -0.3, split_sen[i])#print sentence
@@ -80,17 +90,18 @@ def CKY_parse(sentence,cnf_grammer,ax):
 				ax.add_patch(patches.Rectangle((s,length-(length-l)-1), 1,1,facecolor='#619bf9'))#member trying to get
 				x=length
 				y=length
-				for key, value in grammer.items():
-					line = str(key) + str(value)
-					ax.text(x,y, line,fontsize=10,horizontalalignment='right')#print all rules
+				#if want grammer to be shown on the plot , uncomment the following lines
+				# for key, value in grammer.items():
+				# 	line = str(key) + str(value)
+				# 	ax.text(x,y, line,fontsize=10,horizontalalignment='right')#print all rules
 
-					y-=.3
+				# 	y-=.3
 				fig.savefig('./out/'+str(count)+'.png')
 ##plotting end	
 #       for each production Ra -> Rb Rc
 				# for key, value in cnf_grammer.items():
 				# 	if(mat[s+1][s])
-	if mat[0][0]:
+	if 'S' in mat[0][0]:
 		return 1,length, mat,ims
 	
 	else:
@@ -111,41 +122,26 @@ def print_dict(this_dict):
 
 if __name__ == '__main__':
 
-	sentence='a cat chased the dog in the dog'
+	sentence='I prefer a flight to Houston'
 
-	file_name = "short_grammer_1.txt"
+	file_name = "short_grammer_3.txt"
 
 	grammer = import_grammer_from_file(file_name)
+
+	CNF_grammer = CFG_to_CNF(grammer)
 #make plotting permanent part
 	split_sen = sentence.split()
 	length=len(split_sen)
 	global fig 
 	fig = plt.figure(0)
 	ax=fig.add_subplot(111)
-	
-	# for i in range(length):
-	# 	ax.text(i+0.5, -0.3, split_sen[i])
-	# x=length-0.05
-	# y=length-0.15
-	# for key, value in grammer.items():
-	# 	line = str(key) + str(value)
-	# 	ax.text(x,y, line,fontsize=10,horizontalalignment='right')
-	# 	y-=.2
-	
 
-	parse_success, length, mat,ims = CKY_parse(sentence,grammer,ax)
-	# for i in range(length):
-	# 	for j in range(length):
-	# 		if mat[i][j]:
-	# 			ax.text(j+0.4, length-i-0.5, mat[i][j])
 
-		
-	# ani = animation.ArtistAnimation(fig, ims, interval=100, blit=False,
- #                                repeat_delay=1000)
-
-# ani.save('dynamic_images.mp4')
-
-	# plt.show()
+	parse_success, length, mat,ims = CKY_parse(sentence,CNF_grammer,ax)
+	if parse_success:
+		print('parse successful!')
+	else:
+		print('Cannot parse sentence!')
 
 
 else:
