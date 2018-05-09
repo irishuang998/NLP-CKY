@@ -1,6 +1,5 @@
 #imports
 import matplotlib.pyplot as plt
-import numpy as np
 import matplotlib.animation as animation
 import matplotlib.patches as patches
 #looks like a dictionary of String: list[string] is easy
@@ -122,9 +121,9 @@ def print_dict(this_dict):
 
 if __name__ == '__main__':
 
-	sentence='I prefer a flight to Houston'
+	sentence='a duck duck a cat in the jungle'
 
-	file_name = "short_grammer_3.txt"
+	file_name = "short_grammer_1.txt"
 
 	grammer = import_grammer_from_file(file_name)
 
